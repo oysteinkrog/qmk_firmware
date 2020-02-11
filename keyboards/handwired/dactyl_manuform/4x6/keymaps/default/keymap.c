@@ -81,15 +81,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |--------+------+------+------+------+------+                              +------+------+------+------+------+--------|
  * |        |      |      |      | Mute | VolDn|                              | MLeft| Mdown| MUp  |MRight|      |        |
  * `----------------------+------+------+------+------+------+  +-------------+------+------+------+----------------------'
- *                        |      |      |      |      | RST  |  |      |      |      |      |      |
+ *                        |      |      |      |      |      |  |      |      |      |      |      |
  *                        |      |      |      |      |      |  |      |      |      |      |      |
  *                        `----------------------------------'  ×----------------------------------'
  */
 [_RAISE] = LAYOUT(
-  _______, KC_1, 	  KC_2,    KC_3,    KC_4,    KC_5,                                      KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    _______,
+  _______, KC_1, 	  KC_2,    KC_3,    KC_4,    KC_5,                                      KC_6,    KC_7,    KC_8,    KC_9,    KC_0,      RESET,
   _______, _______, KC_MPRV, KC_MPLY, KC_MNXT, KC_VOLU,                                     KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, _______, _______,
   _______, _______, _______, _______, KC_MUTE, KC_VOLD,                                     KC_MS_L, KC_MS_D, KC_MS_U, KC_MS_R, _______, _______,
-                    _______, _______, _______, _______, TP(TP_RST),                _______, _______, _______, _______, _______
+                    _______, _______, _______, _______, _______,                   _______, _______, _______, _______, _______
 ),
 
 /*
@@ -103,19 +103,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 };
 
+const uint16_t PROGMEM test_combo[] = {KC_A, KC_B, COMBO_END};
+combo_t key_combos[COMBO_COUNT] = {COMBO(test_combo, KC_ESC)};
+
 void persistent_default_layer_set(uint16_t default_layer) {
   eeconfig_update_default_layer(default_layer);
   default_layer_set(default_layer);
 }
-
-//Tap Dance Declarations
-enum {
-  TP_RST = 0
-};
-
-//Tap Dance Definitions
-qk_tap_dance_action_t tap_dance_actions[] = {
-  //Tap once for Esc, twice for Caps Lock
-  [TP_RST]  = ACTION_TAP_DANCE_DOUBLE(KC_TRNS, KC_RESET)
-// Other declarations would go here, separated by commas, if you have them
-};
