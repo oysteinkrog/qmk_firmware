@@ -33,6 +33,17 @@
 #define L3_DEL  LT(_L3,    KC_DEL)
 #define ALT_DEL LT(KC_LALT,KC_DEL)
 
+// Implement Super-alt↯tab
+// See https://docs.qmk.fm/#/feature_macros?id=super-alt↯tab
+bool is_alt_tab_active = false;
+uint16_t alt_tab_timer = 0;
+
+// Defining all the custom keycodes.
+enum custom_keycodes {
+  ALT_TAB = SAFE_RANGE,
+};
+
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 /* L0: Colemak
@@ -56,7 +67,7 @@ r*                 |       |ALT_DEL|L2_BSPC| L1_ESC|   L3  |    | L3_DEL | ENTER
 /*
  * L1: Numbers and FN
  * ,-----------------------------------------------.                     ,-----------------------------------------------.
- * |       |       |       |       |       |       |                     |       |   7   |   8   |   9   |       |       |
+ * |ALT_TAB|       |       |       |       |       |                     |       |   7   |   8   |   9   |       |       |
  * |-------+-------+-------+-------+-------+-------|                     |-------+-------+-------+-------+-------+-------|
  * |       |       |       |       |       |       |                     |       |   4   |   5   |   6   |       |       |
  * |-------+-------+-------+-------+-------+-------+                     +-------+-------+-------+-------+-------+-------|
@@ -65,8 +76,8 @@ r*                 |       |ALT_DEL|L2_BSPC| L1_ESC|   L3  |    | L3_DEL | ENTER
  *                 |       |       |       |       |       |    |        |       |       |       |       |
  *                 +-------+-------+-------+-------+-------+    +--------+-------+-------+-------+-------+
  */
-[_L2] = LAYOUT(
-  _______, KC_EXLM, KC_AT,   KC_LCBR, KC_RCBR, KC_PIPE,                   _______,   KC_7,   KC_8,   KC_9,_______,KC_BSLS,
+[_L1] = LAYOUT(
+  ALT_TAB, KC_EXLM, KC_AT,   KC_LCBR, KC_RCBR, KC_PIPE,                   _______,   KC_7,   KC_8,   KC_9,_______,KC_BSLS,
   _______, KC_HASH, KC_DLR,  KC_LPRN, KC_RPRN, KC_GRV,                    KC_PLUS,KC_MINS,KC_SLSH,KC_ASTR,KC_PERC,KC_QUOT,
   _______, KC_PERC, KC_CIRC, KC_LBRC, KC_RBRC, KC_TILD,                   KC_AMPR,KC_EQL, KC_COMM, KC_DOT,KC_SLSH,KC_MINS,
                     _______, _______, _______, KC_SCLN, KC_EQL,  KC_EQL,  KC_SCLN,_______,_______,_______
@@ -146,6 +157,36 @@ combo_t key_combos[COMBO_COUNT] = {COMBO(test_combo, KC_ESC)};
 void persistent_default_layer_set(uint16_t default_layer) {
   eeconfig_update_default_layer(default_layer);
   default_layer_set(default_layer);
+}
+
+// Processing all the key pressed.
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+
+  // Depending keycodes…
+  switch (keycode) { // This will do most of the grunt work with the keycodes.
+    case ALT_TAB:
+      if (record->event.pressed) {
+        if (!is_alt_tab_active) {
+          is_alt_tab_active = true;
+          register_code(KC_LALT);
+        }
+        alt_tab_timer = timer_read();
+        register_code(KC_TAB);
+      } else {
+        unregister_code(KC_TAB);
+      }
+      break;
+  }
+  return true;
+}
+
+void matrix_scan_user(void) {     // The very important timer.
+  if (is_alt_tab_active) {
+    if (timer_elapsed(alt_tab_timer) > 1000) {
+      unregister_code(KC_LALT);
+      is_alt_tab_active = false;
+    }
+  }
 }
 
 /*
