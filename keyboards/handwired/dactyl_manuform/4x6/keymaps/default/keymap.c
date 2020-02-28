@@ -41,13 +41,13 @@
 
 // Implement Super-alt↯tab
 // See https://docs.qmk.fm/#/feature_macros?id=super-alt↯tab
-bool is_alt_tab_active = false;
-uint16_t alt_tab_timer = 0;
+/*bool is_alt_tab_active = false;*/
+/*uint16_t alt_tab_timer = 0;*/
 
 // Defining all the custom keycodes.
-enum custom_keycodes {
-  ALT_TAB = SAFE_RANGE,
-};
+/*enum custom_keycodes {*/
+  /*ALT_TAB = SAFE_RANGE,*/
+/*};*/
 
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -137,70 +137,45 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                             _______,_______,      _______,_______
 ),
 
-/*
- * Raise Layer: Number keys, media, navigation
- *
- * ,-------------------------------------------.                              ,-------------------------------------------.
- * |        |   1  |  2   |  3   |  4   |  5   |                              |  6   |  7   |  8   |  9   |  0   |        |
- * |--------+------+------+------+------+------|                              |------+------+------+------+------+--------|
- * |        |   1  | Prev | Play | Next | VolUp|                              | Left | Down | Up   | Right|      |        |
- * |--------+------+------+------+------+------+                              +------+------+------+------+------+--------|
- * |        |      |      |      | Mute | VolDn|                              | MLeft| Mdown| MUp  |MRight|      |        |
- * `----------------------+------+------+------+------+------+  +-------------+------+------+------+----------------------'
- *                 |       |       |       |       |       |    |        |       |       |       |       |
- *                 +-------+-------+-------+-------+-------+    +--------+-------+-------+-------+-------+
- *                                         |       |       |    |        |       |
- *                                         +-------+-------+    +--------+-------+
- */
-
-/*
-[_L1] = LAYOUT(
-    _______,RESET,  _______,KC_UP  ,_______,KC_LBRC,                    KC_RBRC,_______,KC_NLCK,KC_INS, KC_SLCK,KC_MUTE,   \
-    _______,KC_HOME,KC_LEFT,KC_DOWN,KC_RGHT,END    ,                    KC_RPRN,KC_MPRV,KC_MPLY,KC_MNXT,_______,KC_VOLU,   \
-    _______,_______,_______,_______,_______,_______,                    _______,_______,_______,_______,_______,KC_VOLD,   \
-                    KC_LBRC,KC_RBRC,_L2, KC_ESC, KC_BSPC,   _L2,  KC_ENT, KC_SPC, KC_PLUS,KC_EQL                    \
-)
-*/
-
 };
 
-const uint16_t PROGMEM test_combo[] = {KC_A, KC_B, COMBO_END};
-combo_t key_combos[COMBO_COUNT] = {COMBO(test_combo, KC_ESC)};
+/*const uint16_t progmem test_combo[] = {kc_a, kc_b, combo_end};*/
+/*combo_t key_combos[COMBO_COUNT] = {COMBO(test_combo, KC_ESC)};*/
 
-void persistent_default_layer_set(uint16_t default_layer) {
-  eeconfig_update_default_layer(default_layer);
-  default_layer_set(default_layer);
-}
+/*void persistent_default_layer_set(uint16_t default_layer) {*/
+  /*eeconfig_update_default_layer(default_layer);*/
+  /*default_layer_set(default_layer);*/
+/*}*/
 
-// Processing all the key pressed.
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+/*// Processing all the key pressed.*/
+/*bool process_record_user(uint16_t keycode, keyrecord_t *record) {*/
 
-  // Depending keycodes…
-  switch (keycode) { // This will do most of the grunt work with the keycodes.
-    case ALT_TAB:
-      if (record->event.pressed) {
-        if (!is_alt_tab_active) {
-          is_alt_tab_active = true;
-          register_code(KC_LALT);
-        }
-        alt_tab_timer = timer_read();
-        register_code(KC_TAB);
-      } else {
-        unregister_code(KC_TAB);
-      }
-      break;
-  }
-  return true;
-}
+  /*// Depending keycodes…*/
+  /*switch (keycode) { // This will do most of the grunt work with the keycodes.*/
+    /*case ALT_TAB:*/
+      /*if (record->event.pressed) {*/
+        /*if (!is_alt_tab_active) {*/
+          /*is_alt_tab_active = true;*/
+          /*register_code(KC_LALT);*/
+        /*}*/
+        /*alt_tab_timer = timer_read();*/
+        /*register_code(KC_TAB);*/
+      /*} else {*/
+        /*unregister_code(KC_TAB);*/
+      /*}*/
+      /*break;*/
+  /*}*/
+  /*return true;*/
+/*}*/
 
-void matrix_scan_user(void) {     // The very important timer.
-  if (is_alt_tab_active) {
-    if (timer_elapsed(alt_tab_timer) > 1000) {
-      unregister_code(KC_LALT);
-      is_alt_tab_active = false;
-    }
-  }
-}
+/*void matrix_scan_user(void) {     // The very important timer.*/
+  /*if (is_alt_tab_active) {*/
+    /*if (timer_elapsed(alt_tab_timer) > 1000) {*/
+      /*unregister_code(KC_LALT);*/
+      /*is_alt_tab_active = false;*/
+    /*}*/
+  /*}*/
+/*}*/
 
 /*
  * +-----------------------------------------------+                     +-----------------------------------------------+
