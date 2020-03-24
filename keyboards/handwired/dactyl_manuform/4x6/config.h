@@ -40,8 +40,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DIODE_DIRECTION COL2ROW
 
 // WS2812 RGB LED strip input and number of LEDs
+#define RGBLIGHT_ANIMATIONS
 #define RGB_DI_PIN D3
-#define RGBLED_NUM 12
+#define RGBLIGHT_SPLIT
+#define RGBLED_NUM 8
+#define RGBLED_SPLIT {4,4}
 
 //#define OLED_DISPLAY_ADDRESS 0x78
 #define OLED_DISPLAY_128X64

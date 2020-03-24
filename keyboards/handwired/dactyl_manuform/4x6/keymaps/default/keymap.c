@@ -200,6 +200,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     /*return OLED_ROTATION_180;*/
 /*}*/
 
+void matrix_init_user(void) { // Runs boot tasks for keyboard
+    rgblight_enable();
+    rgblight_sethsv(100,255,255);
+    rgblight_mode(RGBLIGHT_MODE_RAINBOW_MOOD);
+};
 
 static void render_qmk_logo(void) {
     static const char PROGMEM qmk_logo[] = {
