@@ -336,9 +336,9 @@ static void render_wpm_graph(void) {
 
 void oled_task_user(void) {
     if (is_keyboard_master()) {
-        render_wpm_graph();
-    } else {
         render_status(); // Renders the current keyboard state (layer, lock, caps, scroll, etc)
+    } else {
+        render_wpm_graph();
     }
 }
 #endif
