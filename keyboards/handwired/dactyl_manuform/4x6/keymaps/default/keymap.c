@@ -40,6 +40,8 @@ uint16_t wpm_graph_timer = 0;
 #define L3_INS  LT(_L3,    KC_INS)
 #define L1_ENT  LT(_L1,    KC_ENT)
 #define L2_ENT  LT(_L2,    KC_ENT)
+#define L1_SPC  LT(_L1,    KC_SPC)
+#define L2_SPC  LT(_L2,    KC_SPC)
 #define ALT_DEL LT(KC_LALT,KC_DEL)
 
 // Implement Super-alt↯tab
@@ -63,7 +65,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |-------+-------+-------+-------+-------+-------|                     |-------+-------+-------+-------+-------+-------|
  * |  SHFT |   z   |   x   |   c   |   v   |   b   |                     |   k   |   m   |   ,   |   .   |   /   |  SHFT |
  * `-------+-------+-------+-------+-------+-------+-------.     ,-------+-------+-------+-------+-------+-------+-------'
- *                 |   L3  |  LALT |L1_BSPC| L2_ESC|   L3  |     |   L3  | L2_EN | L1_SPC|  RALT |   L3  |
+ *                 |   L3  |  LALT |L1_BSPC| L2_ESC|   L3  |     |   L3  | L2_SPC| L1_ENT|  RALT |   L3  |
  *                 `-------+-------+-------+-------+-------+     +-------+-------+-------+-------+-------'
  *                                         |  LGUI |  INS  |     |  DEL  | RALT  |
  *                                         `-------+-------'     `-------+-------'
@@ -73,7 +75,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      KC_TAB,   KC_Q,   KC_W,   KC_F,   KC_P,   KC_G,                         KC_J,   KC_L,   KC_U,   KC_Y,KC_SCLN,KC_BSLS,
      KC_LCTL , KC_A,   KC_R,   KC_S,   KC_T,   KC_D,                         KC_H,   KC_N,   KC_E,   KC_I,   KC_O,KC_RCTL,
      KC_LSFT , KC_Z,   KC_X,   KC_C,   KC_V,   KC_B,                         KC_K,   KC_M,KC_COMM, KC_DOT,KC_SLSH,KC_RSFT,
-                         L3,KC_LALT,L1_BSPC, L2_ESC,     L3,         L3  , L2_ENT, L1_SPC, KC_RALT,     L3,
+                         L3,KC_LALT,L1_BSPC, L2_ESC,     L3,         L3  , L2_SPC, L1_ENT, KC_RALT,     L3,
                                             KC_LALT,  KC_INS,      KC_DEL,KC_RALT
 ),
 /*
